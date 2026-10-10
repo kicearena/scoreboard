@@ -27,6 +27,6 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/v')
         run: |
           test "${GITHUB_REF_NAME#v}" = "$(node -p 'require("./package.json").version')"
-          npm publish
+          node scripts/publish.mjs
         env:
           NODE_AUTH_TOKEN: ${{ github.token }}
