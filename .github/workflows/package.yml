@@ -14,8 +14,8 @@ jobs:
       packages: read
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
           node-version: "24"
       - uses: oven-sh/setup-bun@v2
@@ -27,7 +27,7 @@ jobs:
       - run: bun run check && bun run test && bun run build && bun run demo:build
       - run: npm pack --dry-run
   publish:
-    if: startsWith(github.ref, 'refs/tags/v')
+    if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'workflow_dispatch'
     needs: check
     permissions:
       contents: read
@@ -35,8 +35,8 @@ jobs:
       id-token: write
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
           node-version: "24"
           registry-url: "https://registry.npmjs.org"
@@ -50,9 +50,15 @@ jobs:
           NODE_AUTH_TOKEN: ${{ github.token }}
       - run: bun run check && bun run test && bun run build && bun run demo:build
       - run: npm pack --dry-run
-      - name: Publish identical package to GitHub Packages and npm
+      - name: Verify release target
         run: |
-          test "${GITHUB_REF_NAME#v}" = "$(node -p 'require("./package.json").version')"
-          node scripts/publish.mjs
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then
+            test "${GITHUB_REF_NAME#v}" = "$(node -p 'require("./package.json").version')"
+          else
+            test "$GITHUB_EVENT_NAME" = "workflow_dispatch"
+            test "$GITHUB_REF_NAME" = "main"
+          fi
+      - name: Publish identical package to GitHub Packages and npm
+        run: node scripts/publish.mjs
         env:
           GH_PACKAGES_TOKEN: ${{ github.token }}
