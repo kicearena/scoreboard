@@ -1,15 +1,11 @@
 {
   "name": "@kicearena/scoreboard",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "type": "module",
   "description": "Controlled scoreboard rows, cells, controls and reveal presentation.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kicearena/scoreboard.git"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com",
-    "access": "public"
   },
   "files": [
     "dist",

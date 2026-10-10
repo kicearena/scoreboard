@@ -4,18 +4,13 @@
 
 ## 설치
 
-GitHub Packages의 npm registry로 배포합니다. 공개 패키지도 이 registry에서는 인증이 필요합니다. 프로젝트 `.npmrc`에 다음 설정을 두고 `read:packages` 권한의 토큰을 `NODE_AUTH_TOKEN`으로 제공합니다. 토큰 값은 파일이나 저장소에 넣지 않습니다.
-
-```ini
-@kicearena:registry=https://npm.pkg.github.com
-//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}
-```
+npm 공개 registry에서 설치합니다. 인증 설정은 필요하지 않습니다.
 
 ```sh
-bun add --exact @kicearena/scoreboard@0.1.2
+npm install --save-exact @kicearena/scoreboard@0.1.3
+# or
+bun add --exact @kicearena/scoreboard@0.1.3
 ```
-
-React `^19.2.3`은 peer dependency입니다. React DOM과 앱의 router는 소비자가 제공합니다. CSS는 반드시 한 번 import합니다.
 
 ## 기본 점수표
 
