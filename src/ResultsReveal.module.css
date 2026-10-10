@@ -1,0 +1,794 @@
+.scoreboard-display {
+}
+.scoreboard-elapsed-time {
+}
+.reveal-board-shell {
+  margin-top: 16px;
+}
+@media (max-width: 640px) {
+  .reveal-board-shell {
+    margin-top: 12px;
+  }
+}
+.reveal-error {
+  margin: 8px 0 0;
+  color: var(--danger);
+  font-size: 12px;
+  font-weight: 650;
+}
+
+sub.reveal-time-annotation {
+  position: absolute;
+  right: 3px;
+  bottom: 2px;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1;
+}
+
+.reveal-row.reveal-moving {
+  position: relative;
+  z-index: 4;
+  will-change: transform;
+}
+
+.reveal-row.reveal-row-focusing {
+  position: relative;
+  z-index: 5;
+}
+
+.reveal-row.reveal-row-moving,
+.reveal-row.reveal-row-revealing,
+.reveal-row.reveal-row-confirming {
+  position: relative;
+}
+.contest-scoreboard-page b.reveal-rank-value {
+  line-height: 1;
+}
+
+.reveal-rank-crown {
+  position: absolute;
+  top: 4px;
+  right: 3px;
+  color: var(--ui-accent-ink);
+  fill: color-mix(in srgb, var(--ui-accent-base) 62%, transparent);
+  pointer-events: none;
+}
+
+.reveal-problem-cell-content {
+  display: grid;
+  gap: 2px;
+  justify-items: center;
+}
+
+.reveal-problem-cell-content b {
+  font-size: 13px;
+  line-height: 1.1;
+}
+
+.reveal-problem-cell-content small {
+  color: inherit;
+  font-size: 10px;
+  font-weight: 1000;
+  line-height: 1.1;
+  opacity: 0.82;
+}
+
+.reveal-problem-cell-content.active-cell {
+  animation: reveal-cell-turn 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  backface-visibility: hidden;
+  transform-origin: center center;
+  will-change: transform, opacity;
+}
+
+@keyframes reveal-cell-turn {
+  0% {
+    opacity: 1;
+    transform: perspective(600px) rotateX(0deg) scale(1);
+  }
+  45% {
+    opacity: 0;
+    transform: perspective(600px) rotateX(90deg) scale(0.98);
+  }
+  55% {
+    opacity: 0;
+    transform: perspective(600px) rotateX(-90deg) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(600px) rotateX(0deg) scale(1);
+  }
+}
+
+@keyframes reveal-cell-cover {
+  0%,
+  43% {
+    opacity: 1;
+    transform: perspective(600px) rotateX(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: perspective(600px) rotateX(90deg);
+  }
+  57%,
+  100% {
+    opacity: 0;
+    transform: perspective(600px) rotateX(180deg);
+  }
+}
+
+.scoreboard-notice.with-context {
+  margin-top: 32px;
+}
+.scoreboard-notice.embedded-notice {
+  margin-top: 0;
+}
+
+.scoreboard-notice {
+  margin: 18px 0 -4px;
+  padding: 0;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.6;
+  text-align: right;
+}
+
+/* Detail routes already provide the shared tab-to-content offset. */
+
+/* Standalone live scoreboards use the same offset below their context tabs. */
+
+.score-meta {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  margin: 22px 0;
+  min-width: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.score-meta > div {
+  display: inline-flex;
+  align-items: baseline;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+.score-meta strong {
+  margin-right: 5px;
+  font-size: 23px;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+
+.score-meta span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.scoreboard-meta-note {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 10px !important;
+  white-space: nowrap;
+}
+
+.score-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 22px 0;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
+.score-search-field {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: min(100%, 474px);
+  min-width: 230px;
+}
+
+.score-search-field svg {
+  position: absolute;
+  left: 12px;
+  color: var(--muted);
+  pointer-events: none;
+}
+
+.score-search-field input {
+  box-sizing: border-box;
+  max-width: 100%;
+  width: 100%;
+  min-width: 0;
+  min-height: 41px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 10px 14px 10px 38px;
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 12px;
+}
+
+.score-search-field input:focus-visible {
+  outline: 2px solid var(--primary-ink);
+  outline-offset: 2px;
+}
+
+.score-toolbar > div {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  min-width: 0;
+  flex-wrap: wrap;
+  font-size: 12px;
+}
+
+.contest-scoreboard-page .score-toolbar label {
+  font-weight: 500;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 7px;
+  color: var(--ink);
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.contest-scoreboard-page .score-toolbar input[type="checkbox"] {
+  max-width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--surface);
+  color: var(--ink);
+  width: 16px;
+  height: 16px;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  accent-color: var(--ink);
+}
+
+.contest-scoreboard-page .reveal-board-shell {
+  position: relative;
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-height: 640px;
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--ink);
+  scrollbar-width: thin;
+}
+
+.contest-scoreboard-page .scoreboard-empty-state {
+  min-height: 280px;
+  border-block: 1px solid var(--border);
+}
+
+/* The public competition route already owns the shared event heading and tabs. */
+.contest-scoreboard-page.contest-scoreboard-embedded {
+  width: 100%;
+  max-width: none;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.contest-scoreboard-page.contest-scoreboard-embedded > section {
+  width: 100%;
+}
+
+.contest-scoreboard-page small.reveal-header-points {
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 500;
+}
+
+.contest-scoreboard-page .reveal-problem-cell-content {
+  display: grid;
+  width: 100%;
+  min-height: 45px;
+  align-content: center;
+  justify-items: center;
+  gap: 2px;
+  border-radius: 3px;
+  padding: 5px;
+}
+
+.contest-scoreboard-page .reveal-problem-cell-content b {
+  font-size: 13px;
+  line-height: 1.1;
+}
+
+.contest-scoreboard-page .reveal-problem-cell-content small {
+  color: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.1;
+  opacity: 0.82;
+}
+
+.contest-scoreboard-page .reveal-problem-cell-content.accepted,
+.contest-scoreboard-page .reveal-problem-cell-content.revealed-correct {
+  background: #e9efda;
+  color: #3d6029;
+}
+
+.contest-scoreboard-page .reveal-problem-cell-content.first-solve {
+  background: #dcebdc;
+  color: #326e4b;
+  box-shadow: inset 0 0 0 2px #91bd91;
+}
+
+.contest-scoreboard-page .reveal-problem-cell-content.tried,
+.contest-scoreboard-page .reveal-problem-cell-content.revealed-wrong {
+  background: #f7e8e5;
+  color: #a94339;
+}
+
+.contest-scoreboard-page .reveal-problem-cell-content.frozen {
+  background: #e4e4e0;
+  color: #606358;
+}
+
+.contest-scoreboard-page .reveal-problem-cell-content.empty {
+  color: color-mix(in srgb, var(--muted) 70%, transparent);
+}
+
+.score-legend {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.score-legend > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.score-legend-swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  background: #e5eee5;
+}
+
+.score-legend-swatch.tried {
+  background: #f7e8e5;
+}
+
+.score-legend-swatch.frozen {
+  background: #e4e4e0;
+}
+
+.score-legend-swatch.empty {
+  border: 1px solid var(--border);
+  background: transparent;
+}
+
+.score-page-buttons {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0 !important;
+}
+
+.score-page-ellipsis {
+  padding: 0 3px;
+  color: var(--muted);
+}
+
+.score-page-tail {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.contest-scoreboard-page .score-pagination {
+  gap: 4px;
+  width: 100%;
+  padding: 16px 0 2px;
+}
+
+.contest-scoreboard-page .score-pagination > span:first-child {
+  min-width: 0;
+  margin-right: auto;
+  text-align: left;
+}
+
+.scoreboard-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Spotboard wallboard. The end route and the expanded live board use this
+   presentation instead of stretching the ordinary scoreboard table. */
+.contest-scoreboard-page.contest-end-scoreboard-page,
+.contest-scoreboard-page.scoreboard-expanded {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  width: 100vw;
+  max-width: none;
+  height: 100dvh;
+  min-height: 100dvh;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  background: #fff;
+}
+
+.contest-scoreboard-page.contest-end-scoreboard-page > .spotboard-display,
+.contest-scoreboard-page.scoreboard-expanded > .spotboard-display {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+.spotboard-display {
+  --spotboard-row-height: clamp(96px, 9.2vh, 120px);
+  --spotboard-red: #a94339;
+  --spotboard-red-light: #d16d64;
+  --spotboard-pending: #e0b400;
+  --spotboard-pending-ink: #4b4015;
+  --spotboard-focus: #e2f08b;
+  display: grid;
+  grid-template-rows: 58px minmax(0, 1fr);
+  min-width: 0;
+  min-height: 100%;
+  background: #fff;
+  color: #111;
+  font-family: var(--font-sans);
+}
+
+.spotboard-team-list {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  max-height: none !important;
+  overflow-x: auto !important;
+  overflow-y: auto !important;
+  border: 0 !important;
+  scrollbar-width: thin;
+  overscroll-behavior: contain;
+  contain: layout paint;
+}
+
+.spotboard-empty {
+  display: grid;
+  min-height: 100%;
+  margin: 0;
+  place-items: center;
+  color: #777;
+  font-size: clamp(18px, 2vw, 30px);
+}
+
+.spotboard-solved-cell {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  min-height: var(--spotboard-row-height);
+  padding: 4px 12px 0 4px;
+  color: transparent;
+  font-size: clamp(42px, 5.5vw, 76px);
+  font-weight: 650;
+  letter-spacing: -0.08em;
+  line-height: 1.2;
+  transition:
+    background-color 360ms ease,
+    color 240ms ease;
+}
+
+.spotboard-solved-cell.first {
+  border-top-right-radius: 18px;
+  color: #fff;
+}
+
+.spotboard-solved-cell.last {
+  border-bottom-right-radius: 18px;
+}
+
+.spotboard-rank-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.spotboard-rank-cell b {
+  font-size: clamp(30px, 4vw, 57px);
+  font-weight: 420;
+  letter-spacing: -0.065em;
+}
+
+.spotboard-rank-cell small {
+  align-self: flex-start;
+  margin-top: 17%;
+  font-size: clamp(12px, 1.4vw, 22px);
+}
+
+.spotboard-player-cell {
+  display: flex;
+  min-width: 0;
+  min-height: max-content;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  padding: 4px 16px 4px 2px;
+}
+
+.spotboard-player-line {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  gap: 10px;
+}
+
+.spotboard-player-cell > small {
+  overflow: hidden;
+  color: #222;
+  font-size: clamp(13px, 1.6vw, 24px);
+  font-weight: 400;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.spotboard-results {
+  display: grid;
+  grid-template-columns: repeat(
+    var(--spotboard-problem-count, 1),
+    minmax(62px, 1fr)
+  );
+  align-self: stretch;
+  min-width: 0;
+}
+
+.spotboard-problem-cell {
+  position: relative;
+  display: flex;
+  min-width: 62px;
+  min-height: var(--spotboard-row-height);
+  align-items: stretch;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid #fff;
+  background: #f5f5f0;
+  color: #b8b8b5;
+  transition:
+    background-color 260ms ease,
+    color 260ms ease;
+}
+
+.spotboard-problem-face {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.spotboard-problem-face b {
+  font-size: clamp(22px, 2.8vw, 42px);
+  font-weight: 600;
+  letter-spacing: -0.05em;
+}
+
+.spotboard-problem-link {
+  display: inline-flex;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+  text-decoration: none;
+}
+
+.spotboard-problem-link:hover,
+.spotboard-problem-link:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.spotboard-problem-face small {
+  min-height: 0.9em;
+  margin-top: 3px;
+  font-size: clamp(13px, 1.6vw, 25px);
+  font-weight: 650;
+}
+
+.spotboard-problem-cell.accepted,
+.spotboard-problem-cell.revealed-correct {
+  background-color: #205918;
+  background-image: linear-gradient(
+    180deg,
+    #679f34 0%,
+    #3b8128 55%,
+    #205918 100%
+  );
+  color: #fff;
+}
+
+.spotboard-problem-cell.first-solve {
+  background-color: #6aaa6a;
+  background-image: linear-gradient(
+    180deg,
+    #92cf92 0%,
+    #6aaa6a 55%,
+    #4f874f 100%
+  );
+  color: #fff;
+}
+
+.spotboard-problem-cell.tried,
+.spotboard-problem-cell.revealed-wrong {
+  background-color: var(--spotboard-red);
+  background-image: repeating-linear-gradient(
+    -45deg,
+    color-mix(in srgb, var(--spotboard-red-light) 72%, transparent) 0 12px,
+    color-mix(in srgb, var(--spotboard-red) 92%, transparent) 12px 24px
+  );
+  color: #fff;
+}
+
+.spotboard-problem-cell.frozen {
+  background: var(--spotboard-pending);
+  color: var(--spotboard-pending-ink);
+}
+
+.spotboard-problem-cell.active-cell {
+  z-index: 3;
+}
+
+.spotboard-problem-cell.active-cell::before {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  content: "";
+  background: var(--spotboard-pending);
+  transform-origin: center;
+  animation: reveal-cell-cover var(--reveal-verdict-duration, 680ms)
+    cubic-bezier(0.22, 1, 0.36, 1) both;
+  pointer-events: none;
+}
+
+.spotboard-problem-cell.active-cell > .spotboard-problem-face {
+  animation: reveal-cell-turn var(--reveal-verdict-duration, 680ms)
+    cubic-bezier(0.22, 1, 0.36, 1) both;
+  backface-visibility: hidden;
+  transform-origin: center center;
+  will-change: transform, opacity;
+}
+
+.spotboard-penalty-cell {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 0 clamp(8px, 0.8vw, 12px);
+  font-size: clamp(24px, 2.7vw, 42px);
+  font-variant-numeric: tabular-nums;
+  font-weight: 420;
+  letter-spacing: -0.055em;
+  line-height: 0.95;
+  white-space: nowrap;
+}
+
+.spotboard-penalty-cell sub {
+  position: absolute;
+  right: clamp(8px, 0.8vw, 12px);
+  bottom: 14px;
+  font-size: 0.32em;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+.spotboard-display .reveal-row-focusing {
+  z-index: 5;
+}
+
+.spotboard-display .reveal-row-moving {
+  z-index: 8;
+  will-change: transform;
+}
+
+.spotboard-display .reveal-row-moving .spotboard-solved-cell,
+.spotboard-display .reveal-row-moving .spotboard-penalty-cell {
+  animation: spotboard-summary-update var(--reveal-row-duration, 420ms)
+    cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.spotboard-display .reveal-row-confirming .spotboard-rank-cell b {
+  animation: reveal-rank-confirm var(--reveal-rank-duration, 360ms)
+    cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes reveal-rank-confirm {
+  0% {
+    opacity: 0;
+    transform: translateY(6px) scale(0.82);
+  }
+  65% {
+    opacity: 1;
+    transform: translateY(-1px) scale(1.06);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes spotboard-summary-update {
+  0% {
+    opacity: 0.58;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 600px) {
+  .scoreboard-notice {
+    margin: 12px 0 -2px;
+    text-align: left;
+  }
+  .score-meta {
+    gap: 18px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+  }
+  .score-meta strong {
+    font-size: 20px;
+  }
+  .score-meta span {
+    font-size: 10px;
+  }
+  .scoreboard-meta-note {
+    width: 100%;
+    margin-left: 0;
+    font-size: 9px !important;
+  }
+  .score-toolbar {
+    align-items: stretch;
+    margin: 20px 0 15px;
+  }
+  .score-toolbar > div {
+    width: 100%;
+    justify-content: flex-end;
+  }
+  .score-search-field {
+    width: 100%;
+    min-width: 0;
+  }
+  .contest-scoreboard-page .reveal-board-shell {
+    max-height: none;
+  }
+  .score-page-tail {
+    display: none;
+  }
+  .spotboard-display {
+    --spotboard-row-height: 82px;
+  }
+}
